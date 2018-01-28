@@ -1,0 +1,842 @@
+@charset "UTF-8";
+
+/* ************************************************************
+ * 超大見出し（前は2行空き・後ろ1行空き）
+ * ************************************************************ */
+
+/* ────────────────────────────────────────────────────────────
+ * 大見出し（前は2行空き・後ろ1行空き）
+ * ──────────────────────────────────────────────────────────── */
+
+/* ******************** 中見出し(前後に空行) ******************** */
+
+/* 小見出し(前に空行) */
+
+
+/* ************************************************************
+ * 記述ルール・メモ
+ * ************************************************************
+
+html
+・ひとかたまりとして見せたい場合は、前後に空行
+・1行はできるだけ80文字以内におさめる
+・jsにはできるだけidを使う
+・jsで使うセレクタには"j-"をつける
+
+CSS
+・原則、要素名にstyleを指定しない
+・ただし、その要素でないと機能が成り立たない場合は、要素名にstyleをしてもいい
+・スタイルは打ち消しより、付け足し
+・見出し以外の前後は空行入れない
+・style.cssの行が増えてきたら、小分けにするつもり
+・モバイルファーストで作る
+・ブレイクポイント @media (min-width: 750px) { Tablets + Desktops }
+・メディアクエリはまずその場その場で書き込んで、あとで別ファイルにまとめ直すつもり
+・色は https://www.materialui.co/colors の 偶数を基本的に使う
+・基本的にフォントやmargin/padding等のサイズはrem単位で指定する
+
+*/
+
+
+/* ************************************************************
+ * CSS構造
+ * ************************************************************
+
+Foundation (要素名指定)
+	├ reset.css (別ファイル)
+	├ basic
+	├ block
+	├ inline
+	├ hx
+	├ anchor
+	├ form
+	└ table
+
+Layout (ID指定)
+	├ #l-header
+	├ #l-nav
+	├ #l-main
+	└ #l-footer
+
+Object (Class指定)
+	├ Component
+	│	├ .c-button
+	│	└ .c-table_form
+	├ Project
+	└ Utility
+		├ .u-bdc- (border-color)
+		├ .u-bgc- (background-color)
+		├ .u-c- (color)
+		├ .u-btnc- (background-color / box-shadow)
+		├ .u-fz- (font-size)
+		└ utility.css (別ファイル)
+
+参考：https://github.com/hiloki/flocss
+
+*/
+
+
+/* ************************************************************
+ * Foundation (要素名指定)
+ * ************************************************************
+
+Reset.cssやNormalize.cssなどを用いたブラウザのデフォルトスタイルの初期化や、
+プロジェクトにおける基本的なスタイルを定義します。
+ページの下地としての全体の背景や、基本的なタイポグラフィなどが該当します。
+
+*/
+
+/* ******************** basic ******************** */
+
+html {
+	font-size: 62.5%; /* 1rem=10px相当に設定 */
+}
+body {
+	color: #333;
+	font-size: 1.6rem; /* 基本のフォントサイズ */
+	font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro',
+							 'メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+	line-height: 1;
+	letter-spacing: -0.05em;
+}
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+/* ******************** block ******************** */
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { /* floatしてもclearが不要、親の背景色が下まで伸びる */
+		position: relative;
+		overflow: hidden;
+}
+p {
+	text-align: justify;
+	text-justify: inter-ideograph; /* IE5以上 */
+	line-height: 1.6;
+}
+p + p {
+	margin: 1rem 0;
+}
+
+/* ******************** inline ******************** */
+
+img,
+span {
+	display: inline-block;
+}
+
+/* ******************** hx ******************** */
+/*
+h2 {
+	margin-bottom: 3rem;
+	font-size: 3rem;
+	text-align: center;
+}
+h3 {
+	margin-bottom: 2rem;
+	font-size: 2rem;
+	text-align: center;
+}
+
+ ******************** anchor ******************** */
+
+a:link, a:visited, a:hover, a:active {
+	display: inline-block;
+	color: #1565C0;
+	text-decoration: none;
+}
+a:hover {
+	color: #00838F;
+	text-decoration: underline;
+}
+a:hover img {
+	opacity: .8;
+}
+
+/* ******************** form ******************** */
+/*
+label {
+	display: inline-block;
+}
+input,
+textarea,
+select {
+	padding: .5em;
+	font-size: 1.6rem;
+	border: none;
+	border-radius: .5rem;
+	line-height: 1;
+}
+input[type='text'],
+input[type='password'],
+textarea {
+	width: 100%;
+	border: 1px solid #CCCCCC;
+	resize: vertical;
+}
+input[type="checkbox"] {
+	margin: .5em 0 .7em;
+}
+input[type="checkbox"]:checked + span,
+input[type="radio"]:checked + span {
+	font-weight: bold;
+}
+select {
+	margin: .4em 0;
+}
+input[type='submit'],
+input[type='button'] {
+	cursor: pointer;
+}
+
+ ******************** table ******************** */
+
+
+/* ************************************************************
+ * Layout (ID指定) #l-*
+ * ************************************************************
+
+ページを構成するヘッダーやメインのコンテンツエリア、サイドバーやフッターといった
+プロジェクト共通のコンテナーブロックのスタイルを定義します。
+
+基本的には、ページ単位で唯一の存在である要素となるため、
+Layoutレイヤーの要素ではIDセレクタを使うことを推奨します。
+IDセレクタはセレクタの詳細度を高めてしまうため、他のレイヤーやモジュールでは推奨しません。
+
+*/
+
+/* ******************** #l-header ******************** */
+
+#l-header {
+	position: fixed;
+	top: 0;
+	right: 0;
+	margin: 2rem;
+	text-align: right;
+	line-height: 1.5;
+}
+#l-header span,
+#l-header img {
+	display: block;
+}
+.l-header-role {
+	
+}
+
+
+/*
+#l-header {
+	text-align: center;
+	border-bottom: 1px solid #CCC;
+}
+
+.l-header-inner {
+	position: relative;
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 2rem 1rem;
+}
+.l-header-logo-image {
+	position: relative;
+	width: 160px;
+	text-align: left;
+}
+.l-header-logo-beta {
+	position: absolute;
+	right: 0;
+	bottom: .5rem;
+	display: block;
+	color: #000000;
+	font-weight: bold;
+}
+.l-header-logo-description {
+	font-size: 1rem;
+	text-align: center;
+}
+.l-header-logo-description rt {
+	display: none;
+}
+@media (min-width: 768px) {
+	#l-header {
+		text-align: left;
+	}
+	.l-header-logo-image {
+		float: left;
+	}
+	.l-header-logo-description {
+		float: left;
+		margin-top: .7rem;
+		margin-left: 2rem;
+		font-size: 1em;
+	}
+	.l-header-logo-description rt {
+		display: block;
+	}
+}
+@media (min-width: 768px) and (max-width: 999px) {
+	.l-header-logo-description {
+		display: none;
+	}
+}
+
+ ******************** #l-nav ******************** */
+/*
+#l-nav {
+	margin-top: 1rem;
+}
+.l-nav-welcome {
+	margin-bottom: .4rem;
+}
+
+@media (min-width: 768px) {
+	#l-nav {
+		position: absolute;
+		top: 50%;
+		right: 1rem;
+		margin-top: -2rem;
+		margin-right: -0.5em;
+		text-align: right;
+	}
+}
+
+ ******************** #l-main ******************** */
+/*
+#l-main {
+	overflow: hidden;
+}
+
+/* .l-main-inner 基本の横幅 *
+.l-main-inner {
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 4rem 1rem;
+}
+.l-main-inner + .l-main-inner {
+	padding-top: 0;
+}
+/* .l-main-inner.l-main-inner-half 幅狭め *
+.l-main-inner.l-main-inner-half {
+	max-width: 500px;
+}
+/* .l-main-inner.l-main-inner-none 幅拡張 *
+.l-main-inner.l-main-inner-none {
+	max-width: none !important;
+}
+
+/* .l-main-contrast 左右に並べる *
+.l-main-contrast .l-main-contrast-inner {
+	padding: 4rem 1rem;
+}
+@media (min-width: 768px) {
+	.l-main-contrast {
+		float: left;
+		width: 50%;
+	}
+	.l-main-contrast .l-main-contrast-inner {
+		max-width: 500px;
+	}
+	.l-main-contrast:first-of-type .l-main-contrast-inner {
+		float: right;
+		padding-right: 4rem;
+	}
+	.l-main-contrast:last-of-type .l-main-contrast-inner {
+		padding-left: 4rem;
+	}
+}
+@media (min-width: 1000px) {
+	.l-main-contrast .l-main-contrast-inner {
+		width: 500px;
+	}
+}
+
+ ******************** #l-footer ******************** */
+/*
+#l-footer {
+	padding: 1rem;
+	text-align: center;
+	font-size: 1.2rem;
+	border-top: 1px solid #CCC;
+}
+.l-footer-menu {
+	margin-bottom: .5rem;
+}
+
+
+ ************************************************************
+ * Object (Class指定)
+ * ************************************************************
+
+FOOCSSのコンセプトを元に、
+プロジェクトにおける繰り返されるビジュアルパターンをすべてObjectと定義します。
+
+FLOCSSでのObjectは、さらに次の3つのレイヤーに分けられます。
+
+*/
+
+
+/* ────────────────────────────────────────────────────────────
+ * Object - 1. Component .c-*
+ * ────────────────────────────────────────────────────────────
+
+再利用できるパターンとして、小さな単位のモジュールを定義します。
+
+一般的によく使われるパターンであり、
+例えばBootstrapのComponentカテゴリなどに見られるbuttonなどが該当します。
+
+出来る限り、最低限の機能を持ったものとして定義されるべきであり、
+それ自体が固有の幅や色などの特色を持つことは避けるのが望ましいです
+
+*/
+
+/* ******************** .c-button ********************
+下記とセットで使う
+.u-fz-
+.u-btnc-
+*
+
+.c-button {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	padding: .75em 1.25em;
+	color: #FFF !important;
+	font-weight: bold;
+	text-align: center;
+	border-radius: 2em;
+	background: #CCCCCC;
+}
+.c-button:hover {
+	top: 1px;
+	left: 1px;
+	opacity: .8;
+	text-decoration: none;
+}
+
+/* テーブル直後のボタン *
+table + .c-button {
+	margin-top: 2rem;
+}
+
+/* クロージング用ボタン *
+.c-button.c-button-closing {
+	font-size: 2rem !important;
+}
+@media (min-width: 499px) {
+	.c-button.c-button-closing {
+		font-size: 3rem !important;
+	}
+}
+
+/* ページトップ用ボタン *
+.c-button.c-button-pagetop {
+	position: fixed;
+	right: 2rem;
+	bottom: 2rem;
+	width: 100px;
+	height: 100px;
+	padding: 0;
+	line-height: 100px;
+	border-radius: 50%;
+	background: #AAAAAA;
+}
+.c-button.c-button-pagetop:hover {
+	top: auto;
+	left: auto;
+}
+
+ ******************** .c-label ********************
+.u-bgc-とセットで使う
+必須は.u-bgc-red
+任意は.u-bgc-gray
+公開は.u-bgc-blue
+非公開は.u-bgc-gray
+*
+
+.c-label {
+	position: relative;
+	top: -0.2rem;
+	display: inline-block;
+	margin-top: -0.1rem;
+	padding: .2rem .5rem .3rem;
+	font-size: 1rem;
+	font-weight: bold;
+	line-height: 1;
+	color: #fff;
+	border-radius: .5rem;
+}
+
+/* ******************** .c-table_form-alert ********************
+.u-alc-とセットで使う
+*
+
+.c-table_form-alert {
+	margin-top: 1em;
+	padding: .5em;
+	border: 1px solid #CCC;
+	border-radius: .5rem;
+	text-align: center;
+}
+
+/* .c-table_form内にalertを表示するとき *
+.c-table_form .c-table_form-alert {
+	margin: 0 0 -0.8rem;
+	font-size: 1.2rem;
+}
+
+/* ******************** .c-table_form ********************
+<th>ラベル</th><td>フォーム</td>という形式のtableに使う
+*
+
+.c-table_form {
+	width: 100%;
+}
+.c-table_form th {
+	padding: .5em .5em .5em 0;
+	text-align: right;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+.c-table_form td {
+	position: relative;
+	padding: .5em 0;
+}
+.c-table_form-error {
+	position: absolute;
+}
+
+/* ******************** .c-table_list ********************
+一覧形式のtableに使う
+*
+
+.c-table_list {
+	width: 100%;
+	text-align: center;
+}
+.c-table_list tr:nth-child(odd) {
+	background: #FFF;
+}
+.c-table_list tr:nth-child(even) {
+	background: #efefef;
+}
+.c-table_list th,
+.c-table_list td {
+	padding: .5rem;
+	white-space: nowrap;
+	border: 1px #ccc solid;
+}
+.c-table_list input {
+	margin: -0.5rem 0 0;
+}
+
+/* ******************** .c-wide-table-wrap ********************
+#js-wide-table の親に自動生成してスクロールさせる
+*
+
+.c-wide-table-wrap {
+	overflow: scroll;
+	margin-right: -1rem;
+}
+
+/* ******************** .c-table_invitation ********************
+招待状用のテーブル
+*
+
+.c-table_invitation {
+	margin: 1em auto;
+}
+.c-table_invitation th {
+	text-align: justify;
+}
+.c-table_invitation th,
+.c-table_invitation td {
+	padding: .5rem;
+	white-space: nowrap;
+	border: 1px #CCC solid;
+}
+
+/* ******************** .c-pipe-list ********************
+headerやfooterの横並び・パイプつなぎのメニュー
+*
+
+.c-pipe-list li {
+	display: inline-block;
+}
+.c-pipe-list li + li {
+	border-left: 1px solid #CCC;
+}
+.c-pipe-list li a {
+	padding: 0 .5em;
+}
+
+/* ******************** .c-button-list ********************
+ボタンリスト
+*
+
+.c-button-list {
+	list-style: none;
+	text-align: center;
+}
+.c-button-list li {
+	padding: 0 .5rem;
+}
+
+/* 横並び *
+.c-button-list.c-button-list-inline li {
+	display: inline-block;
+}
+
+/* marginあり *
+.c-button-list.c-button-list-margin {
+	margin: 1rem 0;
+}
+.c-button-list.c-button-list-margin li {
+	margin: .5rem 0;
+}
+
+/* ******************** .c-disc-list ********************
+説明書きなどで使う黒丸リスト
+.u-maw-とセットで使うと中央寄せできるかも
+*
+
+.c-disc-list {
+	margin: 1rem auto;
+	padding-left: 2rem;
+}
+.c-disc-list li {
+	line-height: 1.6;
+}
+
+/* ────────────────────────────────────────────────────────────
+ * Object - 2. Project .p-*
+ * ────────────────────────────────────────────────────────────
+
+プロジェクト固有のパターンであり、いくつかのComponentと、
+それに該当しない要素によって構成されるものを定義します。
+
+例えば、記事一覧や、ユーザープロフィール、画像ギャラリーなど
+コンテンツを構成する要素などが該当します。
+
+※目安として4回以上利用するようであれば再利用できるパターンとみなして、Componentに格上げする
+
+*
+
+/* ******************** .p-top-contrast ********************
+topページでは中央にpaddingをもうけないため、l-main-contrastを使わない
+*
+
+.p-top-contrast {
+	float: left;
+	width: 50%;
+}
+.p-top-contrast .p-top-contrast-inner {
+	width: 500px;
+	padding: 4rem 1rem;
+}
+.p-top-contrast:first-of-type .p-top-contrast-inner {
+	float: right;
+}
+
+/* ******************** .p-pr_about ******************** *
+
+.p-pr_about {
+	background: url('/common/img/top/bg-about.png') repeat-x center bottom;
+}
+.p-pr_about-copy {
+	position: absolute;
+	top: 4rem;
+	left: 50%;
+	margin-left: -200px;
+}
+.p-pr_about .l-main-inner {
+	padding: 3rem 0 0 !important;
+}
+.p-pr_about .p-top-contrast-inner {
+	padding: 7rem 0 0 !important;
+}
+.p-pr_about-inner {
+	position: relative;
+}
+.p-pr_about-inner img {
+	display: block;
+}
+.p-pr_about-other_register {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	font-size: .75rem;
+}
+.p-pr_about-button {
+	position: absolute;
+	bottom: 2rem;
+	width: 100%;
+	padding: 0 1rem;
+}
+@media (min-width: 499px) {
+	.p-pr_about > div {
+		padding-top: 4rem !important;
+	}
+	.p-pr_about-button {
+		bottom: 4rem;
+	}
+}
+
+
+/* ******************** .p-pr_point ******************** *
+
+.p-pr_point ul li {
+	list-style: none;
+}
+.p-pr_point ul li + li {
+	margin-top: 4rem;
+}
+.p-pr_point ul li img {
+	margin-bottom: 2rem;
+}
+
+/* ******************** .p-pr_step ******************** *
+
+.p-pr_step ul li {
+	list-style: none;
+}
+.p-pr_step ul li + li {
+	position: relative;
+	margin-top: 4rem;
+}
+.p-pr_step ul li + li::before {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	top: -2rem;
+	left: 50%;
+	margin-top: -0.5rem;
+	margin-left: -0.5rem;
+	border: 1rem solid transparent;
+	border-top: 1rem solid #666;
+}
+
+/* ******************** .p-pr_closing ******************** *
+
+.p-pr_closing > div {
+	padding: 2rem 1rem !important;
+}
+
+/* ******************** .p-sample_view ********************
+集客用タグのサンプル表示の枠
+*
+
+.p-sample_view {
+	position: relative;
+	margin-top: 1rem;
+	background: #FFF;
+	border-radius: .5rem;
+}
+.p-sample_view::before {
+	content: '表示サンプル';
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: inline-block;
+	padding: .5em;
+	font-size: 1.2rem;
+	color: #FFF;
+	background: #666;
+	border-radius: .5rem 0 .5rem 0;
+}
+
+
+/* ────────────────────────────────────────────────────────────
+ * Object - 3. Utility .u-*
+ * ────────────────────────────────────────────────────────────
+
+ComponentとProjectレイヤーのObjectのモディファイアで解決することが難しい・適切では無い、
+わずかなスタイルの調整のための便利クラスなどを定義します。
+
+Utilityは、Component、ProjectレイヤーのObjectを無尽蔵に増やしてしまうことを防いだり、
+またこれらのObject自体が持つべきではないmarginの代わりに
+.mbs { margin-bottom: 1rem; }のようなUtility Objectを用いて、
+隣接するモジュールとの間隔をつくるといった役割を担います。
+
+*
+
+/* ******************** .u-c- ********************
+color: 800のcolor;
+*
+
+/* ******************** .u-bdc- ********************
+border-color: 800のcolor;
+*
+
+/*.u-bdc- { border-color: # !important; }*
+
+/* ******************** .u-bgc- ********************
+background-color: 400のcolor;
+*
+
+.u-bgc-user { background-color: #FFFFFF !important; }
+.u-bgc-adviser { background-color: #EEEEEE !important; }
+.u-bgc-closing { background-color: #CCCCCC !important; }
+.u-bgc-point { background-color: #F8BBD0 !important; }
+.u-bgc-etc { background-color: #80DEEA !important; }
+.u-bgc-manage { background-color: #CFD8DC !important; }
+.u-bgc-idol { background-color: #F7C6D2 !important; }
+
+/* ******************** .u-c- ********************
+color: 800のcolor;
+*
+
+.u-c-closing { color: #1a237e !important; }
+
+/* ******************** .u-btnc- ********************
+.c-buttonと一緒に使う
+background-color: 600のcolor;
+box-shadow: 800のcolor;
+*
+
+.u-btnc-user { background-color: #283593 !important; }
+.u-btnc-adviser { background-color: #039be5 !important; }
+.u-btnc-point { background-color: #EC407A !important; }
+.u-btnc-etc { background-color: #00ACC1 !important; }
+.u-btnc-manage { background-color: #546E7A !important; }
+.u-btnc-idol { background-color: #F7A5B9 !important; }
+
+/* ******************** .u-fz- ******************** *
+
+.u-fz-05rem { font-size: .5rem !important; }
+.u-fz-2rem { font-size: 2rem !important; }
+.u-fz-3rem { font-size: 3rem !important; } /* c-buttonにおすすめ *
+.u-fz-4rem { font-size: 4rem !important; }
+.u-fz-5rem { font-size: 5rem !important; }
+.u-fz-6rem { font-size: 6rem !important; }
+
+/* ******************** .u-alc- ********************
+.c-table_form-alertと一緒に使う
+*
+
+.u-alc-success {
+	color: #1565C0 !important;
+	border-color: #1565C0 !important;
+}
+.u-alc-danger {
+	color: #c62828 !important;
+	border-color: #c62828 !important;
+}
+
+/* ******************** .u-maw- ******************** *
+
+.u-maw-100px { max-width: 100px !important; }
+.u-maw-200px { max-width: 200px !important; }
+.u-maw-300px { max-width: 300px !important; }
+.u-maw-400px { max-width: 400px !important; }
+
+
+/* ******************** .u-d-n- ******************** *
+
+.u-d-n-sp {	display: none !important; }
+
+@media (min-width: 768px) {
+	.u-d-n-sp { display: inline-block !important; }
+	.u-d-n-pc { display: none !important; } /* 未使用 *
+}
+*/
