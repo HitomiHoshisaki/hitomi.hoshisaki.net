@@ -117,7 +117,6 @@ body {
 article,aside,details,figcaption,figure,
 footer,header,hgroup,menu,nav,section {
 	position: relative;
-	/* overflow: hidden; */
 }
 address {
 	font-style: normal;
@@ -272,11 +271,9 @@ IDセレクタはセレクタの詳細度を高めてしまうため、他のレ
 	#l-header {
 		position: fixed;
 		right: 0;
-
 		width: auto; /* 打ち消し */
 		height: auto; /* 打ち消し */
 		min-height: max-content; /* 打ち消し */
-		
 		margin: 2.5rem;
 		text-align: right;
 	}
@@ -285,48 +282,51 @@ IDセレクタはセレクタの詳細度を高めてしまうため、他のレ
 /* ******************** #l-nav ******************** */
 
 #l-nav {
+	z-index: 100;
 	position: fixed;
 	top: 0;
 	width: 100vw;
 }
-#l-nav > div {
-	position: absolute;
-}
 
 /* .l-nav-bar */
 .l-nav-bar {
-	z-index: 100;
+	z-index: 99;
+	position: fixed;
+	top: 0;
 	width: 100vw;
 	height: 5rem;
 	background: #FFF;
 	box-shadow: 0px 3px 4px rgba(0,0,0,0.3);
 }
-.l-nav-bar-icon-wrap {
+.l-nav-bar-icon {
 	padding: .5rem;
 }
-.l-nav-bar-icon-wrap i {
+.l-nav-bar-icon i {
 	font-size: 4rem;
 }
-.l-nav-bar-icon-wrap:last-child {
+.l-nav-bar-icon:last-child {
 	display: block;
 	float: right;
 }
-/*.l-nav-bar-icon-wrap:last-child i:before {*/
-/*	content: 'menu';*/
-/*}*/
-/*.l-nav-bar-icon-wrap:last-child i:before:hover {*/
-/*	content: 'clear';*/
-/*}*/
+.l-nav-bar-icon:last-child i:before {
+	content: 'menu';
+	transition: content .5s;
+}
+#js-nav-open-checkbox:checked ~ .l-nav-bar .l-nav-bar-icon:last-child i:before {
+	content: 'clear';
+}
 
 /* .l-nav-contents */
 .l-nav-contents {
-	display: none;
-	right: 0;
-	z-index: 99;
+	z-index: 98;
+	position: fixed;
+	top: 0;
+	right: -50vw;
 	max-width: 20rem;
 	width: 50vw;
 	height: 100vh;
 	background: #FFF;
+	transition: right .5s; 
 }
 .l-nav-contents-ul {
 	margin-top: 5.5rem;
@@ -343,15 +343,55 @@ IDセレクタはセレクタの詳細度を高めてしまうため、他のレ
 	font-size: 3rem;
 	vertical-align: middle;
 }
+#js-nav-open-checkbox:checked ~ .l-nav-contents {
+	right: 0;
+}
+@media (min-width: 1200px) {
+	.l-nav-contents {
+		top: auto; /* 打ち消し */
+		right: auto; /* 打ち消し */
+		bottom: 12rem;
+		left: 0;
+		width: auto; /* 打ち消し */
+		height: auto; /* 打ち消し */
+		margin: 2.5rem;
+		text-align: left;
+		background: transparent; /* 打ち消し */
+	}
+	.l-nav-contents-ul {
+		margin-top: auto; /* 打ち消し */
+	}
+	.l-nav-contents-ul li + li {
+		border: none; /* 打ち消し */
+	}
+	.l-nav-contents-ul li a {
+		font-size: 2rem;
+		line-height: 4rem;
+	}
+	.l-nav-contents-ul li a i {
+		padding-left: 0; /* 打ち消し */
+	}
+}
 
 /* .l-nav-overlay */
 .l-nav-overlay {
+	z-index: 97;
 	display: none;
-	z-index: 98;
+	position: fixed;
+	top: 0;
 	width: 100vw;
 	height: 100vh;
 	background: #000;
-	opacity: .5;
+	opacity: 0;
+}
+#js-nav-open-checkbox:checked ~ .l-nav-overlay {
+	display: block;
+	opacity: .3;
+    animation: overlay .7s linear 0s;
+}
+@keyframes overlay {
+	0%		{ opacity: 0; }
+	100%	{ opacity: .3; }
 }
 
 /* ******************** #l-address ******************** */
@@ -362,6 +402,8 @@ IDセレクタはセレクタの詳細度を高めてしまうため、他のレ
 	text-align: center;
 	line-height: 1.8;
 }
+
+/* .l-address-icon-ul */
 .l-address-icon-ul {
 	margin-bottom: .5rem;
 }
@@ -374,14 +416,17 @@ IDセレクタはセレクタの詳細度を高めてしまうため、他のレ
 	border-radius: .5rem;
 }
 
+/* .l-address-text-ul */
+.l-address-text-ul li {
+	list-style: none;
+}
+
 @media (min-width: 1200px) {
 	#l-address {
 		position: fixed;
 		bottom: 0;
-
 		width: auto; /* 打ち消し */
 		height: auto; /* 打ち消し */
-
 		margin: 2.5rem;
 		text-align: left;
 	}
@@ -899,9 +944,9 @@ box-shadow: 800のcolor;
 /* ******************** .u-d-n- ******************** *
 
 .u-d-n-sp {	display: none !important; }
+*/
 
 @media (min-width: 768px) {
-	.u-d-n-sp { display: inline-block !important; }
-	.u-d-n-pc { display: none !important; } /* 未使用 *
+	.u-d-n-sp { display: inline-block !important; } /* 未使用 */
+	.u-d-n-pc { display: none !important; }
 }
-*/

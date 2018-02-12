@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="/common/css/import.css?<?=mt_rand()?>" />
 </head>
-<body>
+<body id="top">
 	
 <header id="l-header">
 	<h1>
@@ -25,51 +25,26 @@
 
 <nav id="l-nav">
 	<h2 class="d-n">サイトメニュー</h2>
-	<div class="l-nav-bar">
-		<a class="l-nav-bar-icon-wrap" href="#top" title="ページトップ">
+	<input id="js-nav-open-checkbox" class="u-d-n-pc" type="checkbox" />
+	<div class="l-nav-bar u-d-n-pc">
+		<a class="l-nav-bar-icon" href="#top" title="ページトップ">
 			<i class="material-icons">home</i>
 		</a>
-		<label for="l-nav-open-checkbox" class="toggle l-nav-bar-icon-wrap">
-			<i class="material-icons">menu</i>
+		<label for="js-nav-open-checkbox" class="l-nav-bar-icon">
+			<i class="material-icons"></i>
 		</label>
 	</div>
-	<input id="l-nav-open-checkbox" type="checkbox" />
 	<div class="l-nav-contents">
-		<ul class="l-nav-contents-ul">
-			<li>
-				<a href="#portfolio" title="ポートフォリオ">
-					<i class="material-icons">developer_board</i>
-					ポートフォリオ
-				</a>
-			</li>
-			<li>
-				<a href="#works" title="職務経歴">
-					<i class="material-icons">description</i>
-					職務経歴
-				</a>
-			</li>
-			<li>
-				<a href="#profile" title="自己紹介">
-					<i class="material-icons">face</i>
-					自己紹介
-				</a>
-			</li>
-			<li>
-				<a href="#introduction" title="他己紹介">
-					<i class="material-icons">textsms</i>
-					他己紹介
-				</a>
-			</li>
-			<li>
-				<a href="#contact" title="お問い合わせ">
-					<i class="material-icons">send</i>
-					お問い合わせ
-				</a>
-			</li>
+		<ul id="js-nav-contents-ul" class="l-nav-contents-ul">
+			<li><a href="#portfolio" title="ポートフォリオ"><i class="material-icons">developer_board</i>ポートフォリオ</a></li>
+			<li><a href="#works" title="職務経歴"><i class="material-icons">description</i>職務経歴</a></li>
+			<li><a href="#profile" title="自己紹介"><i class="material-icons">face</i>自己紹介</a></li>
+			<li><a href="#introduction" title="他己紹介"><i class="material-icons">textsms</i>他己紹介</a></li>
+			<li><a href="#contact" title="お問い合わせ"><i class="material-icons">send</i>お問い合わせ</a></li>
 		</ul>
 	</div>
-	<div class="l-nav-overlay">
-	</div>
+	<label for="js-nav-open-checkbox" class="l-nav-overlay u-d-n-pc">
+	</label>
 </nav>
 
 
@@ -200,5 +175,22 @@
 	<span class="l-footer-copyright-span">2018 hitomi hoshisaki</span>
 </footer>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+// ページ内スムーズスクロール
+$('a[href^="#"]').click(function(){
+	var speed = 800;
+	var href= $(this).attr("href");
+	var target = $(href == '#' || href == '' ? 'html' : href);
+	var position = target.offset().top;
+	$('html, body').animate({scrollTop:position}, speed, 'swing');
+	return false;
+});
+
+// SP版メニューをクリックした時の挙動
+$('#js-nav-contents-ul a').click(function(){
+	$('#js-nav-open-checkbox').prop('checked',false);
+});
+</script>
 </body>
 </html>
