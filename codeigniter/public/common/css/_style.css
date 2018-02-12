@@ -18,22 +18,28 @@
  * ************************************************************
 
 html
-・ひとかたまりとして見せたい場合は、前後に空行
+・ひとかたまりとして見せたい場合(目安は5行以上)は、前後に1行だけ空ける
 ・1行はできるだけ80文字以内におさめる
-・jsにはできるだけidを使う
-・jsで使うセレクタには"j-"をつける
+・セレクタを書く順番は、for → id → class → その他
 
 CSS
 ・原則、要素名にstyleを指定しない
-・ただし、その要素でないと機能が成り立たない場合は、要素名にstyleをしてもいい
+・ただし、その要素でないと機能が成り立たない場合は、要素名にstyleを指定してもいい
+・意味の区切りはハイフン"-"、単語の区切りはアンダーバー"_"
+・ある要素に限定で使いたいid/classには、末尾にその要素名を入れる
 ・スタイルは打ち消しより、付け足し
 ・見出し以外の前後は空行入れない
 ・style.cssの行が増えてきたら、小分けにするつもり
 ・モバイルファーストで作る
-・ブレイクポイント @media (min-width: 750px) { Tablets + Desktops }
+・ブレイクポイント @media (min-width: 1200px) { Tablets + Desktops }
 ・メディアクエリはまずその場その場で書き込んで、あとで別ファイルにまとめ直すつもり
 ・色は https://www.materialui.co/colors の 偶数を基本的に使う
 ・基本的にフォントやmargin/padding等のサイズはrem単位で指定する
+・位置関係→サイズ関係→中身の書式→背景や枠線など周辺のことの順に書く
+
+JS
+・jsにはできるだけidを使う
+・jsで使うセレクタには"j-"をつける
 
 */
 
@@ -55,6 +61,7 @@ Foundation (要素名指定)
 Layout (ID指定)
 	├ #l-header
 	├ #l-nav
+	├ #l-address
 	├ #l-main
 	└ #l-footer
 
@@ -98,6 +105,8 @@ body {
 							 'メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
 	line-height: 1;
 	letter-spacing: -0.05em;
+	
+	position: relative;
 }
 *, *::before, *::after {
 	box-sizing: border-box;
@@ -106,9 +115,12 @@ body {
 /* ******************** block ******************** */
 
 article,aside,details,figcaption,figure,
-footer,header,hgroup,menu,nav,section { /* floatしてもclearが不要、親の背景色が下まで伸びる */
-		position: relative;
-		overflow: hidden;
+footer,header,hgroup,menu,nav,section {
+	position: relative;
+	/* overflow: hidden; */
+}
+address {
+	font-style: normal;
 }
 p {
 	text-align: justify;
@@ -124,6 +136,9 @@ p + p {
 img,
 span {
 	display: inline-block;
+}
+strong {
+	background: linear-gradient(transparent 30%, #fcf 0%);
 }
 
 /* ******************** hx ******************** */
@@ -141,17 +156,29 @@ h3 {
 
  ******************** anchor ******************** */
 
-a:link, a:visited, a:hover, a:active {
+a:link,
+a:visited,
+a:active {
 	display: inline-block;
-	color: #1565C0;
+	color: #333;
 	text-decoration: none;
 }
 a:hover {
-	color: #00838F;
-	text-decoration: underline;
+	color: #999;
 }
 a:hover img {
 	opacity: .8;
+}
+
+/* mainだけ青文字 */
+main a:link, 
+main a:visited, 
+main a:active {
+	color: #1565C0;
+}
+main a:hover {
+	color: #00838F;
+	text-decoration: underline;
 }
 
 /* ******************** form ******************** */
@@ -209,161 +236,199 @@ IDセレクタはセレクタの詳細度を高めてしまうため、他のレ
 /* ******************** #l-header ******************** */
 
 #l-header {
-	position: fixed;
-	top: 0;
-	right: 0;
-	margin: 2rem;
-	text-align: right;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	
+	width: 100%;
+	height: 65vh;
+	min-height: 300px;
+	text-align: center;
 	line-height: 1.5;
 }
-#l-header span,
-#l-header img {
-	display: block;
-}
 .l-header-role {
-	
+	font-size: 1.8rem;
+	font-weight: bold;
+	letter-spacing: .2rem;
 }
-
-
-/*
-#l-header {
-	text-align: center;
-	border-bottom: 1px solid #CCC;
-}
-
-.l-header-inner {
-	position: relative;
-	max-width: 1000px;
-	margin: 0 auto;
-	padding: 2rem 1rem;
-}
-.l-header-logo-image {
-	position: relative;
-	width: 160px;
-	text-align: left;
-}
-.l-header-logo-beta {
-	position: absolute;
-	right: 0;
-	bottom: .5rem;
-	display: block;
-	color: #000000;
+.l-header-name {
+	font-size: 3rem;
 	font-weight: bold;
 }
-.l-header-logo-description {
-	font-size: 1rem;
-	text-align: center;
+.l-header-roman {
+	font-size: 1.5rem;
+	font-weight: normal;
+	letter-spacing: .53rem;
 }
-.l-header-logo-description rt {
-	display: none;
+.l-header-face-img {
+	display: block;
+	width: 150px;
+	height: 150px;
+	margin: 1.5rem auto 2rem;
+	border-radius: 50%;
 }
-@media (min-width: 768px) {
+
+@media (min-width: 1200px) {
 	#l-header {
-		text-align: left;
-	}
-	.l-header-logo-image {
-		float: left;
-	}
-	.l-header-logo-description {
-		float: left;
-		margin-top: .7rem;
-		margin-left: 2rem;
-		font-size: 1em;
-	}
-	.l-header-logo-description rt {
-		display: block;
-	}
-}
-@media (min-width: 768px) and (max-width: 999px) {
-	.l-header-logo-description {
-		display: none;
-	}
-}
+		position: fixed;
+		right: 0;
 
- ******************** #l-nav ******************** */
-/*
-#l-nav {
-	margin-top: 1rem;
-}
-.l-nav-welcome {
-	margin-bottom: .4rem;
-}
-
-@media (min-width: 768px) {
-	#l-nav {
-		position: absolute;
-		top: 50%;
-		right: 1rem;
-		margin-top: -2rem;
-		margin-right: -0.5em;
+		width: auto; /* 打ち消し */
+		height: auto; /* 打ち消し */
+		min-height: max-content; /* 打ち消し */
+		
+		margin: 2.5rem;
 		text-align: right;
 	}
 }
 
- ******************** #l-main ******************** */
-/*
-#l-main {
-	overflow: hidden;
+/* ******************** #l-nav ******************** */
+
+#l-nav {
+	position: fixed;
+	top: 0;
+	width: 100vw;
+}
+#l-nav > div {
+	position: absolute;
 }
 
-/* .l-main-inner 基本の横幅 *
-.l-main-inner {
-	max-width: 1000px;
+/* .l-nav-bar */
+.l-nav-bar {
+	z-index: 100;
+	width: 100vw;
+	height: 5rem;
+	background: #FFF;
+	box-shadow: 0px 3px 4px rgba(0,0,0,0.3);
+}
+.l-nav-bar-icon-wrap {
+	padding: .5rem;
+}
+.l-nav-bar-icon-wrap i {
+	font-size: 4rem;
+}
+.l-nav-bar-icon-wrap:last-child {
+	display: block;
+	float: right;
+}
+/*.l-nav-bar-icon-wrap:last-child i:before {*/
+/*	content: 'menu';*/
+/*}*/
+/*.l-nav-bar-icon-wrap:last-child i:before:hover {*/
+/*	content: 'clear';*/
+/*}*/
+
+/* .l-nav-contents */
+.l-nav-contents {
+	display: none;
+	right: 0;
+	z-index: 99;
+	max-width: 20rem;
+	width: 50vw;
+	height: 100vh;
+	background: #FFF;
+}
+.l-nav-contents-ul {
+	margin-top: 5.5rem;
+}
+.l-nav-contents-ul li +li {
+	border-top: 1px solid #EEE;
+}
+.l-nav-contents-ul li a {
+	width: 100%;
+	line-height: 5rem;
+}
+.l-nav-contents-ul li a i {
+	padding: .3rem .5rem .7rem 1.5rem;
+	font-size: 3rem;
+	vertical-align: middle;
+}
+
+/* .l-nav-overlay */
+.l-nav-overlay {
+	display: none;
+	z-index: 98;
+	width: 100vw;
+	height: 100vh;
+	background: #000;
+	opacity: .5;
+}
+
+/* ******************** #l-address ******************** */
+
+#l-address {
+	width: 100%;
+	height: 35vmax;
+	text-align: center;
+	line-height: 1.8;
+}
+.l-address-icon-ul {
+	margin-bottom: .5rem;
+}
+.l-address-icon-ul li {
+	display: inline-block;
+}
+.l-address-icon-ul li img {
+	width: 4rem;
+	height: 4rem;
+	border-radius: .5rem;
+}
+
+@media (min-width: 1200px) {
+	#l-address {
+		position: fixed;
+		bottom: 0;
+
+		width: auto; /* 打ち消し */
+		height: auto; /* 打ち消し */
+
+		margin: 2.5rem;
+		text-align: left;
+	}
+}
+
+/* ******************** #l-main ******************** */
+
+#l-main {
+	max-width: 700px;
 	margin: 0 auto;
 	padding: 4rem 1rem;
 }
 .l-main-inner + .l-main-inner {
 	padding-top: 0;
 }
-/* .l-main-inner.l-main-inner-half 幅狭め *
-.l-main-inner.l-main-inner-half {
-	max-width: 500px;
-}
-/* .l-main-inner.l-main-inner-none 幅拡張 *
-.l-main-inner.l-main-inner-none {
-	max-width: none !important;
-}
 
-/* .l-main-contrast 左右に並べる *
-.l-main-contrast .l-main-contrast-inner {
-	padding: 4rem 1rem;
-}
-@media (min-width: 768px) {
-	.l-main-contrast {
-		float: left;
-		width: 50%;
-	}
-	.l-main-contrast .l-main-contrast-inner {
-		max-width: 500px;
-	}
-	.l-main-contrast:first-of-type .l-main-contrast-inner {
-		float: right;
-		padding-right: 4rem;
-	}
-	.l-main-contrast:last-of-type .l-main-contrast-inner {
-		padding-left: 4rem;
-	}
-}
-@media (min-width: 1000px) {
-	.l-main-contrast .l-main-contrast-inner {
-		width: 500px;
-	}
-}
-
- ******************** #l-footer ******************** */
+/* ******************** #l-article ******************** */
 /*
-#l-footer {
-	padding: 1rem;
-	text-align: center;
-	font-size: 1.2rem;
-	border-top: 1px solid #CCC;
+#l-article {
+	
 }
-.l-footer-menu {
-	margin-bottom: .5rem;
+*/
+
+/* ******************** #l-footer ******************** */
+
+/*
+@media (min-width: 1200px) {
+	#l-footer {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		margin: 2rem;
+		font-size: 1.2rem;
+		line-height: 1.5;
+	}
+	.l-footer-copyright-i {
+		position: absolute;
+		left: 0;
+		font-size: 1.8rem;
+	}
+	.l-footer-copyright-span {
+		padding-left: 2rem;
+	}
 }
+*/
 
-
- ************************************************************
+/* ************************************************************
  * Object (Class指定)
  * ************************************************************
 
