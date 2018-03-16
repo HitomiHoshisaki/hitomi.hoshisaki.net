@@ -42,7 +42,8 @@
 	}
 	
 	#l-main {
-		float: left;
+		max-width: none;
+		margin: 0 0 0 250px;
 	}
 }
 </style>
@@ -80,6 +81,17 @@
 
 <main id="l-main">
 	
+		<?=$this->session->flashdata('flash');?>
+	
+		<ul>
+			<li><a href="/manage/create_table/admins_table">/manage/create_table/admins_table</a></li>
+			<li><a href="/manage/drop_table/admins_table">/manage/drop_table/admins_table</a></li>
+			<li><a href="/manage/create_table/categories_table">/manage/create_table/categories_table</a></li>
+			<li><a href="/manage/drop_table/categories_table">/manage/drop_table/categories_table</a></li>
+			<li><a href="/manage/create_table/contents_table">/manage/create_table/contents_table</a></li>
+			<li><a href="/manage/drop_table/contents_table">/manage/drop_table/contents_table</a></li>
+		</ul>
+
 </main>
 
 <? include_once(__DIR__.'/../_parts/_footer.php') ?>
