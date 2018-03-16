@@ -141,12 +141,8 @@ strong {
 }
 
 /* ******************** hx ******************** */
+
 /*
-h2 {
-	margin-bottom: 3rem;
-	font-size: 3rem;
-	text-align: center;
-}
 h3 {
 	margin-bottom: 2rem;
 	font-size: 2rem;
@@ -292,7 +288,7 @@ IDセレクタはセレクタの詳細度を高めてしまうため、他のレ
 .l-nav-bar {
 	z-index: 99;
 	position: fixed;
-	top: 0;
+	top: -1px; /* 少し隙間ができてたのでマイナス1 */
 	width: 100vw;
 	height: 5rem;
 	background: #FFF;
@@ -316,8 +312,8 @@ IDセレクタはセレクタの詳細度を高めてしまうため、他のレ
 	content: 'clear';
 }
 
-/* .l-nav-contents */
-.l-nav-contents {
+/* .l-nav-menu */
+.l-nav-menu {
 	z-index: 98;
 	position: fixed;
 	top: 0;
@@ -328,49 +324,23 @@ IDセレクタはセレクタの詳細度を高めてしまうため、他のレ
 	background: #FFF;
 	transition: right .5s; 
 }
-.l-nav-contents-ul {
+.l-nav-menu-ul {
 	margin-top: 5.5rem;
 }
-.l-nav-contents-ul li +li {
+.l-nav-menu-ul li +li {
 	border-top: 1px solid #EEE;
 }
-.l-nav-contents-ul li a {
+.l-nav-menu-ul li a {
 	width: 100%;
 	line-height: 5rem;
 }
-.l-nav-contents-ul li a i {
+.l-nav-menu-ul li a i {
 	padding: .3rem .5rem .7rem 1.5rem;
 	font-size: 3rem;
 	vertical-align: middle;
 }
-#js-nav-open-checkbox:checked ~ .l-nav-contents {
+#js-nav-open-checkbox:checked ~ .l-nav-menu {
 	right: 0;
-}
-@media (min-width: 1200px) {
-	.l-nav-contents {
-		top: auto; /* 打ち消し */
-		right: auto; /* 打ち消し */
-		bottom: 12rem;
-		left: 0;
-		width: auto; /* 打ち消し */
-		height: auto; /* 打ち消し */
-		margin: 2.5rem;
-		text-align: left;
-		background: transparent; /* 打ち消し */
-	}
-	.l-nav-contents-ul {
-		margin-top: auto; /* 打ち消し */
-	}
-	.l-nav-contents-ul li + li {
-		border: none; /* 打ち消し */
-	}
-	.l-nav-contents-ul li a {
-		font-size: 2rem;
-		line-height: 4rem;
-	}
-	.l-nav-contents-ul li a i {
-		padding-left: 0; /* 打ち消し */
-	}
 }
 
 /* .l-nav-overlay */
@@ -439,8 +409,25 @@ IDセレクタはセレクタの詳細度を高めてしまうため、他のレ
 	margin: 0 auto;
 	padding: 4rem 1rem;
 }
-.l-main-inner + .l-main-inner {
-	padding-top: 0;
+
+.l-main-inner h2 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	max-width: 100%;
+	width: 100vw;
+	height: 100vh;
+	min-height: 300px;
+	line-height: 1.5;
+
+	font-size: 5rem;
+	text-align: center;
+}
+@media (min-width: 1200px) {
+	.l-main-inner h2 {
+		font-size: 8rem;
+	}
 }
 
 /* ******************** #l-article ******************** */
@@ -452,26 +439,17 @@ IDセレクタはセレクタの詳細度を高めてしまうため、他のレ
 
 /* ******************** #l-footer ******************** */
 
-/*
-@media (min-width: 1200px) {
-	#l-footer {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		margin: 2rem;
-		font-size: 1.2rem;
-		line-height: 1.5;
-	}
-	.l-footer-copyright-i {
-		position: absolute;
-		left: 0;
-		font-size: 1.8rem;
-	}
-	.l-footer-copyright-span {
-		padding-left: 2rem;
-	}
+#l-footer {
+	clear: both;
+	padding: 3rem 0;
+	font-size: 1.2rem;
+	text-align: center;
+	line-height: 1;
 }
-*/
+.l-footer-i {
+	font-size: 1.8rem;
+    vertical-align: -0.4rem;
+}
 
 /* ************************************************************
  * Object (Class指定)

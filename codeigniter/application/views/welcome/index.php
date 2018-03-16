@@ -8,6 +8,35 @@
 <title>ほしさきひとみポートフォリオサイト</title>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="/common/css/import.css?<?=mt_rand()?>" />
+<style type="text/css">
+/* .l-nav-menu */
+@media (min-width: 1200px) {
+	.l-nav-menu {
+		top: auto; /* 打ち消し */
+		right: auto; /* 打ち消し */
+		bottom: 12rem;
+		left: 0;
+		width: auto; /* 打ち消し */
+		height: auto; /* 打ち消し */
+		margin: 2.5rem;
+		text-align: left;
+		background: transparent; /* 打ち消し */
+	}
+	.l-nav-menu-ul {
+		margin-top: auto; /* 打ち消し */
+	}
+	.l-nav-menu-ul li + li {
+		border: none; /* 打ち消し */
+	}
+	.l-nav-menu-ul li a {
+		font-size: 2rem;
+		line-height: 4rem;
+	}
+	.l-nav-menu-ul li a i {
+		padding-left: 0; /* 打ち消し */
+	}
+}
+</style>
 </head>
 <body id="top">
 	
@@ -34,8 +63,8 @@
 			<i class="material-icons"></i>
 		</label>
 	</div>
-	<div class="l-nav-contents">
-		<ul id="js-nav-contents-ul" class="l-nav-contents-ul">
+	<div class="l-nav-menu">
+		<ul id="js-nav-menu-ul" class="l-nav-menu-ul">
 			<li><a href="#portfolio" title="ポートフォリオ"><i class="material-icons">developer_board</i>ポートフォリオ</a></li>
 			<li><a href="#works" title="職務経歴"><i class="material-icons">description</i>職務経歴</a></li>
 			<li><a href="#profile" title="自己紹介"><i class="material-icons">face</i>自己紹介</a></li>
@@ -65,12 +94,12 @@
 
 <main id="l-main">
 	
-	<article id="portfolio">
+	<article id="portfolio" class="l-main-inner">
 		<h2>ポートフォリオ</h2>
 		
 	</article>
 	
-	<article id="works">
+	<article id="works" class="l-main-inner">
 		<h2>職務経歴</h2>
 			<p>新卒で、大手中古本販売チェーンに入社。店長、新店の立ち上げ店長を経験後、社員教育の研修インストラクターに抜擢されました。その後、大手求人広告サイトの運営会社にコピーライターとして転職。Excelスキルを認められ、大量のCSVデータを扱う部署に異動しました。Excel関数やマクロを使った時間短縮・応募効果の向上に貢献。現在は職業訓練校でWEBを勉強中です。</p>
 			<h3>大手中古本販売チェーン</h3>
@@ -87,7 +116,7 @@
 			<p>作業手順の見直しやマニュアルの修正、秀丸・Excelのマクロ活用などを行ない、作業時間を半減させました。Excelでの効果分析を通じて応募効果が上がり、派遣会社に感謝されて売上も伸びました。チームメンバー向けにExcel勉強会を開催し、チーム全体の作業効率・応募効率の向上にも貢献しました。</p>
 	</article>
 	
-	<article id="profile">
+	<article id="profile" class="l-main-inner">
 		<h2>自己紹介</h2>
 			<h3>1.コミュニケーション能力</h3>
 			<p>研修インストラクターを経験し、目的や行動の意味、具体的なオペレーションを相手に伝える力が身につきました。相手に受け入れてもらうためには、まず自分が相手を受け入れることが重要だと考えます。将来はWEB制作ディレクターとして、この能力を活かしたいです。</p>
@@ -97,7 +126,7 @@
 			<p>学ぶことが好きです。分からないことがあるとすぐに調べたり、本を読んだりする習慣があります。Excel関数・マクロ・ピボットテーブル、秀丸マクロなども、ほぼ独学で使ってきました。未経験ではありますが、WEB制作の現場でも学ぶ力を発揮し、早期にお役に立てるよう努めます。</p>
 	</article>
 
-	<article id="introduction">
+	<article id="introduction" class="l-main-inner">
 		<h2>他己紹介</h2>
 		<p>WEB設計科のクラスメイト20人に聞いた、私の印象です。プレゼンテーションの授業でいただいたものを流用しました。</p>
 		<ol>
@@ -124,7 +153,7 @@
 		</ol>
 	</article>
 	
-	<section id="contact">
+	<section id="contact" class="l-main-inner">
 		<h2>お問い合わせ</h2>
 		<form method="post" action="check.php">
 			<dl>
@@ -170,27 +199,7 @@
 	
 </main>
 
-<footer id="l-footer">
-	<i class="material-icons l-footer-copyright-i">copyright</i>
-	<span class="l-footer-copyright-span">2018 hitomi hoshisaki</span>
-</footer>
+<? include_once(__DIR__.'/../_parts/_footer.php') ?>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
-// ページ内スムーズスクロール
-$('a[href^="#"]').click(function(){
-	var speed = 800;
-	var href= $(this).attr("href");
-	var target = $(href == '#' || href == '' ? 'html' : href);
-	var position = target.offset().top;
-	$('html, body').animate({scrollTop:position}, speed, 'swing');
-	return false;
-});
-
-// SP版メニューをクリックした時の挙動
-$('#js-nav-contents-ul a').click(function(){
-	$('#js-nav-open-checkbox').prop('checked',false);
-});
-</script>
 </body>
 </html>
