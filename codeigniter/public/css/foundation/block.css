@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+	position: relative;
+}
+
+address {
+	font-style: normal;
+}
+
+p {
+	line-height: 1.6;
+	text-align: justify;
+	text-justify: inter-ideograph; /* IE5以上 */
+}
+
+p + p {
+	margin: 1rem 0;
+}

@@ -1,9 +1,9 @@
-<footer id="l-footer">
+<footer class="l-footer">
 	<i class="material-icons l-footer-i">copyright</i>2018 hitomi hoshisaki
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
+<script>
 /*global $*/
 
 // ページ内スムーズスクロール
@@ -17,7 +17,7 @@ $('a[href^="#"]').click(function(){
 });
 
 // SP版メニューをクリックした時の挙動
-$('#js-nav-contents-ul a').click(function(){
-	$('#js-nav-open-checkbox').prop('checked',false);
+$('#j-nav__menu a').click(function(){
+	$('#j-nav__checkbox').prop('checked',false);
 });
 </script>

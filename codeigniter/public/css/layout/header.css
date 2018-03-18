@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+/* ************************************************************
+ * SP
+ * ************************************************************ */
+
+.l-header {
+	align-items: flex-end;
+	display: flex;
+	height: 65vh;
+	justify-content: center;
+	line-height: 1.5;
+	min-height: 300px;
+	text-align: center;
+	width: 100%;
+}
+
+.l-header__role {
+	font-size: 1.8rem;
+	font-weight: bold;
+	letter-spacing: .2rem;
+}
+
+.l-header__name {
+	font-size: 3rem;
+	font-weight: bold;
+}
+
+.l-header__roman {
+	font-size: 1.5rem;
+	font-weight: normal;
+	letter-spacing: .53rem;
+}
+
+.l-header__face {
+	border-radius: 50%;
+	display: block;
+	height: 150px;
+	margin: 1.5rem auto 2rem;
+	width: 150px;
+}
+
+/* ************************************************************
+ * PC
+ * ************************************************************ */
+
+@media (min-width: 1200px) {
+
+	.l-header {
+		height: auto; /* 打ち消し */
+		min-height: max-content; /* 打ち消し */
+		margin: 2.5rem;
+		position: fixed;
+		right: 0;
+		width: auto; /* 打ち消し */
+	}
+
+}

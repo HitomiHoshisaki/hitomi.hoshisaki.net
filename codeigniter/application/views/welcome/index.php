@@ -1,105 +1,74 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8" />
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Webエンジニア・ほしさきひとみのポートフォリオサイト。主にPHP/Rails/HTML5/CSS3/jQueryを使う。">
 <meta name="keywords" content="ほしさきひとみ,Webエンジニア,プログラマー,コーダー,ディレクター,デザイナー,就職活動,転職活動,フリーランス,ポートフォリオ,制作実績,Web制作,自己PR,職務経歴">
 <title>ほしさきひとみポートフォリオサイト</title>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="/common/css/import.css?<?=mt_rand()?>" />
-<style type="text/css">
-/* .l-nav-menu */
-@media (min-width: 1200px) {
-	.l-nav-menu {
-		top: auto; /* 打ち消し */
-		right: auto; /* 打ち消し */
-		bottom: 12rem;
-		left: 0;
-		width: auto; /* 打ち消し */
-		height: auto; /* 打ち消し */
-		margin: 2.5rem;
-		text-align: left;
-		background: transparent; /* 打ち消し */
-	}
-	.l-nav-menu-ul {
-		margin-top: auto; /* 打ち消し */
-	}
-	.l-nav-menu-ul li + li {
-		border: none; /* 打ち消し */
-	}
-	.l-nav-menu-ul li a {
-		font-size: 2rem;
-		line-height: 4rem;
-	}
-	.l-nav-menu-ul li a i {
-		padding-left: 0; /* 打ち消し */
-	}
-}
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="/css/import.css?<?=mt_rand()?>">
 </head>
-<body id="top">
+<body class="l-body--public">
 	
-<header id="l-header">
+<header class="l-header">
 	<h1>
 		<a href="#top" title="サイトTOP">
-			<div class="l-header-role">Webエンジニア</div>
-			<div class="l-header-name">ほしさき ひとみ</div>
-			<div class="l-header-roman">Hitomi Hoshisaki</div>
+			<div class="l-header__role">Webエンジニア</div>
+			<div class="l-header__name">ほしさき ひとみ</div>
+			<div class="l-header__roman">Hitomi Hoshisaki</div>
 			<span class="d-n">ポートフォリオサイト</span>
 		</a>
-		<img class="l-header-face-img" src="/common/img/my/face.png" alt="私の顔写真" />
+		<img class="l-header__face" src="/img/my/face.png" alt="私の顔写真" />
 	</h1>
 </header>
 
-<nav id="l-nav">
+<nav class="l-nav">
 	<h2 class="d-n">サイトメニュー</h2>
-	<input id="js-nav-open-checkbox" class="u-d-n-pc" type="checkbox" />
-	<div class="l-nav-bar u-d-n-pc">
-		<a class="l-nav-bar-icon" href="#top" title="ページトップ">
+	<input id="j-nav__checkbox" class="l-nav__checkbox" type="checkbox" />
+	<div class="l-nav__bar">
+		<a class="l-nav__bar-icon-box" href="#top" title="ページトップ">
 			<i class="material-icons">home</i>
 		</a>
-		<label for="js-nav-open-checkbox" class="l-nav-bar-icon">
+		<label for="j-nav__checkbox" class="l-nav__bar-icon-box">
 			<i class="material-icons"></i>
 		</label>
 	</div>
-	<div class="l-nav-menu">
-		<ul id="js-nav-menu-ul" class="l-nav-menu-ul">
-			<li><a href="#portfolio" title="ポートフォリオ"><i class="material-icons">developer_board</i>ポートフォリオ</a></li>
-			<li><a href="#works" title="職務経歴"><i class="material-icons">description</i>職務経歴</a></li>
-			<li><a href="#profile" title="自己紹介"><i class="material-icons">face</i>自己紹介</a></li>
-			<li><a href="#introduction" title="他己紹介"><i class="material-icons">textsms</i>他己紹介</a></li>
-			<li><a href="#contact" title="お問い合わせ"><i class="material-icons">send</i>お問い合わせ</a></li>
+	<div id="j-nav__menu" class="l-nav__menu">
+		<ul class="l-nav__menu-ul">
+			<li><a href="#portfolio" title="ポートフォリオ"><i class="material-icons">developer_board</i>ポートフォリオ</a>
+			<li><a href="#works" title="職務経歴"><i class="material-icons">description</i>職務経歴</a>
+			<li><a href="#profile" title="自己紹介"><i class="material-icons">face</i>自己紹介</a>
+			<li><a href="#introduction" title="他己紹介"><i class="material-icons">textsms</i>他己紹介</a>
+			<li><a href="#contact" title="お問い合わせ"><i class="material-icons">send</i>お問い合わせ</a>
 		</ul>
 	</div>
-	<label for="js-nav-open-checkbox" class="l-nav-overlay u-d-n-pc">
-	</label>
+	<label for="j-nav__checkbox" class="l-nav__overlay u-d-n-pc"></label>
 </nav>
 
-
-<address id="l-address">
-	<ul class="l-address-icon-ul">
-		<li><a href="mailto:hitomi[あっとまーく]hoshisaki.net" title="mail"><img src="/common/img/social/mail.png" alt="mail" /></a></li>
-		<!--<li><a href="" title="LINE"><img src="/common/img/social/line.png" alt="LINE" /></a></li>-->
-		<li><a href="https://twitter.com/HitomiHoshisaki" title="Twitter" target="_blank"><img src="/common/img/social/twitter.png" alt="Twitter" /></a></li>
-		<li><a href="https://www.facebook.com/HitomiHoshisaki" title="facebook" target="_blank"><img src="/common/img/social/facebook.png" alt="facebook" /></a></li>
-		<li><a href="https://qiita.com/HitomiHoshisaki" title="Qiita" target="_blank"><img src="/common/img/social/qiita.png" alt="Qiita" /></a></li>
-		<li><a href="https://github.com/HitomiHoshisaki" title="GitHub" target="_blank"><img src="/common/img/social/github.png" alt="GitHub" /></a></li>
+<address class="l-address">
+	<ul class="l-address__icon-ul">
+		<li><a href="mailto:hitomi[あっとまーく]hoshisaki.net" title="mail"><img src="/img/social/mail.png" alt="mail" /></a></li>
+		<!--<li><a href="" title="LINE"><img src="/img/social/line.png" alt="LINE" /></a></li>-->
+		<li><a href="https://twitter.com/HitomiHoshisaki" title="Twitter" target="_blank"><img src="/img/social/twitter.png" alt="Twitter" /></a></li>
+		<li><a href="https://www.facebook.com/HitomiHoshisaki" title="facebook" target="_blank"><img src="/img/social/facebook.png" alt="facebook" /></a></li>
+		<li><a href="https://qiita.com/HitomiHoshisaki" title="Qiita" target="_blank"><img src="/img/social/qiita.png" alt="Qiita" /></a></li>
+		<li><a href="https://github.com/HitomiHoshisaki" title="GitHub" target="_blank"><img src="/img/social/github.png" alt="GitHub" /></a></li>
 	</ul>
-	<ul class="l-address-text-ul">
+	<ul class="l-address__text-ul">
 		<li><a href="mailto:hitomi[あっとまーく]hoshisaki.net" title="mail">hitomi＠hoshisaki.net</a></li>
 		<li><a href="<?= $_SERVER['REQUEST_SCHEME'] ?>://<?= $_SERVER['HTTP_HOST'] ?>" title="URL"><?= $_SERVER['REQUEST_SCHEME'] ?>://<?= $_SERVER['HTTP_HOST'] ?></a></li>
 	</ul>
 </address>
 
-<main id="l-main">
+<main class="l-main">
 	
-	<article id="portfolio" class="l-main-inner">
+	<article id="portfolio">
 		<h2>ポートフォリオ</h2>
 		
 	</article>
 	
-	<article id="works" class="l-main-inner">
+	<article id="works">
 		<h2>職務経歴</h2>
 			<p>新卒で、大手中古本販売チェーンに入社。店長、新店の立ち上げ店長を経験後、社員教育の研修インストラクターに抜擢されました。その後、大手求人広告サイトの運営会社にコピーライターとして転職。Excelスキルを認められ、大量のCSVデータを扱う部署に異動しました。Excel関数やマクロを使った時間短縮・応募効果の向上に貢献。現在は職業訓練校でWEBを勉強中です。</p>
 			<h3>大手中古本販売チェーン</h3>
@@ -116,7 +85,7 @@
 			<p>作業手順の見直しやマニュアルの修正、秀丸・Excelのマクロ活用などを行ない、作業時間を半減させました。Excelでの効果分析を通じて応募効果が上がり、派遣会社に感謝されて売上も伸びました。チームメンバー向けにExcel勉強会を開催し、チーム全体の作業効率・応募効率の向上にも貢献しました。</p>
 	</article>
 	
-	<article id="profile" class="l-main-inner">
+	<article id="profile">
 		<h2>自己紹介</h2>
 			<h3>1.コミュニケーション能力</h3>
 			<p>研修インストラクターを経験し、目的や行動の意味、具体的なオペレーションを相手に伝える力が身につきました。相手に受け入れてもらうためには、まず自分が相手を受け入れることが重要だと考えます。将来はWEB制作ディレクターとして、この能力を活かしたいです。</p>
@@ -126,7 +95,7 @@
 			<p>学ぶことが好きです。分からないことがあるとすぐに調べたり、本を読んだりする習慣があります。Excel関数・マクロ・ピボットテーブル、秀丸マクロなども、ほぼ独学で使ってきました。未経験ではありますが、WEB制作の現場でも学ぶ力を発揮し、早期にお役に立てるよう努めます。</p>
 	</article>
 
-	<article id="introduction" class="l-main-inner">
+	<article id="introduction">
 		<h2>他己紹介</h2>
 		<p>WEB設計科のクラスメイト20人に聞いた、私の印象です。プレゼンテーションの授業でいただいたものを流用しました。</p>
 		<ol>
@@ -153,7 +122,7 @@
 		</ol>
 	</article>
 	
-	<section id="contact" class="l-main-inner">
+	<section id="contact">
 		<h2>お問い合わせ</h2>
 		<form method="post" action="check.php">
 			<dl>

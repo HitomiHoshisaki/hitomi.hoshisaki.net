@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+html {
+	font-size: 62.5%; /* 1rem=10px相当に設定 */
+}
+
+body {
+	color: #333;
+	font-size: 1.6rem; /* 基本のフォントサイズ */
+	font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro',
+							 'メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+	line-height: 1;
+	letter-spacing: -0.05em;
+	position: relative;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}

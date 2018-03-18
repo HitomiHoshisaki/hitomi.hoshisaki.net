@@ -1,0 +1,51 @@
+@charset "utf-8";
+
+/* ************************************************************
+ * SP
+ * ************************************************************ */
+
+.l-address {
+	height: 35vmax;
+	line-height: 1.8;
+	text-align: center;
+	width: 100%;
+}
+
+/* .l-address__icon-ul **************************************** */
+
+.l-address__icon-ul {
+	margin-bottom: .5rem;
+}
+
+.l-address__icon-ul li {
+	display: inline-block;
+}
+
+.l-address__icon-ul li img {
+	border-radius: .5rem;
+	height: 4rem;
+	width: 4rem;
+}
+
+/* .l-address__text-ul **************************************** */
+
+.l-address__text-ul li {
+	list-style: none;
+}
+
+/* ************************************************************
+ * PC
+ * ************************************************************ */
+
+@media (min-width: 1200px) {
+	
+	.l-address {
+		bottom: 0;
+		height: auto; /* 打ち消し */
+		margin: 2.5rem;
+		position: fixed;
+		text-align: left;
+		width: auto; /* 打ち消し */
+	}
+	
+}

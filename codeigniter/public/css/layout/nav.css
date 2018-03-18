@@ -1,0 +1,173 @@
+@charset "utf-8";
+
+/* ************************************************************
+ * SP
+ * ************************************************************ */
+
+.l-nav {
+	z-index: 100;
+	position: fixed;
+	width: 100vw;
+}
+
+/* .l-nav__checkbox SP **************************************** */
+
+.l-nav__checkbox {
+	display: none;
+}
+
+.l-nav__checkbox:checked ~ .l-nav__bar .l-nav__bar-icon-box:last-child i:before {
+	content: 'clear';
+}
+
+.l-nav__checkbox:checked ~ .l-nav__menu {
+	right: 0;
+}
+
+.l-nav__checkbox:checked ~ .l-nav__overlay {
+	animation: overlay .7s linear 0s;
+	display: block;
+	opacity: .3;
+}
+
+@keyframes overlay {
+	0%		{ opacity: 0; }
+	100%	{ opacity: .3; }
+}
+
+/* .l-nav__bar SP **************************************** */
+
+.l-nav__bar {
+	background: #FFF;
+	box-shadow: 0 3px 4px rgba(0,0,0,0.3);
+	height: 5rem;
+	position: fixed;
+	top: -1px; /* 少し隙間ができてたのでマイナス1 */
+	width: 100vw;
+	z-index: 99;
+}
+
+.l-nav__bar-icon-box {
+	padding: .5rem;
+}
+
+.l-nav__bar-icon-box i {
+	font-size: 4rem;
+}
+
+.l-nav__bar-icon-box:last-child {
+	display: block;
+	float: right;
+}
+
+.l-nav__bar-icon-box:last-child i:before {
+	content: 'menu';
+	transition: content .5s;
+}
+
+/* .l-nav__menu SP **************************************** */
+
+.l-nav__menu {
+	background: #fff;
+	height: 100vh;
+	position: fixed;
+	max-width: 20rem;
+	right: -50vw;
+	top: 0;
+	transition: right .5s; 
+	width: 50vw;
+	z-index: 98;
+}
+
+.l-nav__menu-ul {
+	margin-top: 5.5rem;
+}
+
+.l-nav__menu-ul li +li {
+	border-top: 1px solid #eee;
+}
+
+.l-nav__menu-ul li a {
+	line-height: 5rem;
+	width: 100%;
+}
+
+.l-nav__menu-ul li a i {
+	font-size: 3rem;
+	padding: .3rem .5rem .7rem 1.5rem;
+	vertical-align: middle;
+}
+
+/* .l-nav__overlay SP **************************************** */
+
+.l-nav__overlay {
+	background: #000;
+	display: none;
+	height: 100vh;
+	opacity: 0;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	z-index: 97;
+}
+
+/* ************************************************************
+ * PC
+ * ************************************************************ */
+
+@media (min-width: 1200px) {
+	
+	/* SP仕様を非表示 **************************************** */
+	
+	.l-nav__checkbox,
+	.l-nav__bar,
+	.l-nav__overlay {
+		display: none !important;
+	}
+	
+	/* 全ページ共通 **************************************** */
+	
+	.l-nav {
+		height: 100vh;
+		width: 25rem;
+	}
+
+	.l-nav__menu {
+		height: auto; /* 打ち消し */
+		left: 0;
+		margin: 2.5rem;
+		right: auto; /* 打ち消し */
+		top: auto; /* 打ち消し */
+		width: auto; /* 打ち消し */
+	}
+	
+	.l-nav__menu-ul {
+		margin-top: auto; /* 打ち消し */
+	}
+	
+	.l-nav__menu-ul li + li {
+		border: none; /* 打ち消し */
+	}
+	
+	.l-nav__menu-ul li a {
+		font-size: 2rem;
+		line-height: 4rem;
+	}
+	
+	.l-nav__menu-ul li a i {
+		padding-left: 0; /* 打ち消し */
+	}
+	
+	/* .l-body--publicの場合 **************************************** */
+	
+	.l-body--public .l-nav__menu {
+		bottom: 12rem;
+	}
+	
+	/* .l-body--manageの場合 **************************************** */
+
+	.l-body--manage .l-nav {
+		box-shadow: 3px 0 4px rgba(0,0,0,0.3);
+	}
+	
+}
