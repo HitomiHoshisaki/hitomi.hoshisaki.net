@@ -1,12 +1,12 @@
 $( document ).ready(function() {
     // Shift nav in mobile when clicking the menu.
-    $(document).on('click', "[data-toggle='wy-nav__top']", function() {
-      $("[data-toggle='wy-nav__shift']").toggleClass("shift");
+    $(document).on('click', "[data-toggle='wy-nav-top']", function() {
+      $("[data-toggle='wy-nav-shift']").toggleClass("shift");
       $("[data-toggle='rst-versions']").toggleClass("shift");
     });
     // Close menu when you click a link.
     $(document).on('click', ".wy-menu-vertical .current ul li a", function() {
-      $("[data-toggle='wy-nav__shift']").removeClass("shift");
+      $("[data-toggle='wy-nav-shift']").removeClass("shift");
       $("[data-toggle='rst-versions']").toggleClass("shift");
     });
     $(document).on('click', "[data-toggle='rst-current-version']", function() {
@@ -33,7 +33,7 @@ window.SphinxRtdTheme = (function (jquery) {
                 win.on('resize', applyStickNav);
             },
             init = function () {
-                navBar = jquery('nav.wy-nav__side:first');
+                navBar = jquery('nav.wy-nav-side:first');
                 win    = jquery(window);
             };
         jquery(init);

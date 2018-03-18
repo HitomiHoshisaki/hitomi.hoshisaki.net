@@ -1,12 +1,12 @@
 $(document).ready(function () {
     // Shift nav in mobile when clicking the menu.
-    $(document).on('click', "[data-toggle='wy-nav__top']", function () {
-        $("[data-toggle='wy-nav__shift']").toggleClass("shift");
+    $(document).on('click', "[data-toggle='wy-nav-top']", function () {
+        $("[data-toggle='wy-nav-shift']").toggleClass("shift");
         $("[data-toggle='rst-versions']").toggleClass("shift");
     });
     // Close menu when you click a link.
     $(document).on('click', ".wy-menu-vertical .current ul li a", function () {
-        $("[data-toggle='wy-nav__shift']").removeClass("shift");
+        $("[data-toggle='wy-nav-shift']").removeClass("shift");
         $("[data-toggle='rst-versions']").toggleClass("shift");
     });
     $(document).on('click', "[data-toggle='rst-current-version']", function () {
@@ -29,9 +29,9 @@ $(document).ready(function () {
             $('#nav2').show();
             $('#topMenu').remove();
             $('body').css({background: 'none'});
-            $('.wy-nav__content-wrap').css({background: 'none', 'margin-left': 0});
+            $('.wy-nav-content-wrap').css({background: 'none', 'margin-left': 0});
             $('.wy-breadcrumbs').append('<div style="float:right;"><div style="float:left;" id="topMenu">' + $('.wy-form').parent().html() + '</div></div>');
-            $('.wy-nav__side').toggle();
+            $('.wy-nav-side').toggle();
         },
         function ()
         {
@@ -40,8 +40,8 @@ $(document).ready(function () {
             $('#nav').hide();
             $('#nav2').hide();
             $('body').css({background: '#edf0f2;'});
-            $('.wy-nav__content-wrap').css({background: 'none repeat scroll 0 0 #fcfcfc;', 'margin-left': '300px'});
-            $('.wy-nav__side').show();
+            $('.wy-nav-content-wrap').css({background: 'none repeat scroll 0 0 #fcfcfc;', 'margin-left': '300px'});
+            $('.wy-nav-side').show();
         }
     );
     if (getCookie('ciNav') == 'yes')
@@ -83,20 +83,20 @@ function getCookie(cname) {
 $(window).on('resize', function(){
     // show side nav on small screens when pulldown is enabled
     if (getCookie('ciNav') == 'yes' && $(window).width() <= 768) { // 768px is the tablet size defined by the theme
-        $('.wy-nav__side').show();
+        $('.wy-nav-side').show();
     }
     // changing css with jquery seems to override the default css media query
     // change margin
     else if (getCookie('ciNav') == 'no' && $(window).width() <= 768) {
-        $('.wy-nav__content-wrap').css({'margin-left': 0});
+        $('.wy-nav-content-wrap').css({'margin-left': 0});
     }
     // hide side nav on large screens when pulldown is enabled
     else if (getCookie('ciNav') == 'yes' && $(window).width() > 768) {
-        $('.wy-nav__side').hide();
+        $('.wy-nav-side').hide();
     }
     // change margin
     else if (getCookie('ciNav') == 'no' && $(window).width() > 768) {
-        $('.wy-nav__content-wrap').css({'margin-left': '300px'});
+        $('.wy-nav-content-wrap').css({'margin-left': '300px'});
     }
 });
 
@@ -117,7 +117,7 @@ window.SphinxRtdTheme = (function (jquery) {
                     win.on('resize', applyStickNav);
                 },
                 init = function () {
-                    navBar = jquery('nav.wy-nav__side:first');
+                    navBar = jquery('nav.wy-nav-side:first');
                     win = jquery(window);
                 };
         jquery(init);
