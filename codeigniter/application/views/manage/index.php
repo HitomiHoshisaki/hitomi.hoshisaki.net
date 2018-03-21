@@ -16,7 +16,7 @@
 }
 </style>
 </head>
-<body class="l-body--manage">
+<body id="top" class="l-body--manage">
 	
 <header class="l-header d-n">
 	<h1>管理ページ</h1>

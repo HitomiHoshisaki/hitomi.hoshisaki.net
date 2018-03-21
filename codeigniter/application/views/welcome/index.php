@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="/css/import.css?<?=mt_rand()?>">
 </head>
-<body class="l-body--public">
+<body id="top" class="l-body--public">
 	
 <header class="l-header">
 	<h1>
